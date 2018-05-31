@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import { browserHistory } from 'react-router';
 import { loadState } from '../utils/StorageUtils';
 import ProfilePicture from '../assets/images/profile1.jpg';
+import DubaiPoliceLogo from '../assets/images/dubai-police.jpg';
 
 class HeaderMenu extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class HeaderMenu extends Component {
 
   }
   render() {
-    const loggedUserName = 'A';
+    const loggedUserName = 'Ahmed';
 
     const { activeItem } = this.state;
     console.log('activeItem', activeItem);
@@ -73,7 +74,8 @@ class HeaderMenu extends Component {
           widths={10}
           style={{ alignSelf: 'center', marginRight: '65px' }}
         >
-          <h3>Home</h3>
+          <img src={DubaiPoliceLogo} height="62px" width="72px" />
+          <span style={{ paddingLeft: '10px' }}>Dubai Police</span>
         </Menu.Item>
 
         <Menu.Item

@@ -51,6 +51,10 @@ ul li {
   font-size: 10px !important;
 }
 
+.center-graph .recharts-legend-wrapper {
+  left: -25px !important;
+}
+
 .left-graph .recharts-default-legend{
   height: 100px;
   width: 100px;

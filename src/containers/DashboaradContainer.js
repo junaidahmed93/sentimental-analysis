@@ -6,12 +6,13 @@ import { bindActionCreators } from 'redux';
 import { Doughnut } from 'react-chartjs-2';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import ReactWordCloud from 'react-wordcloud';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import { XAxis, YAxis, LineChart, Line, Tooltip, Legend, PieChart, Pie, CartesianGrid, Label, BarChart, Bar, Cell } from 'recharts';
 import AverageStats from '../components/dashboard/AverageStats';
 import * as actions from '../actions/DashboardActions';
 import DubaiProfile from '../assets/images/dubaiPro.PNG';
 import DubaiTweetName from '../assets/images/tweetName.PNG';
-import { userInfo } from 'os';
 
 
 const WORD_COUNT_KEY = 'value';
@@ -93,7 +94,10 @@ const secondChart = {
 };
 
 const data = [{ name: 'Group A', value: 400 }, { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 }, { name: 'Group D', value: 200 }];
+{ name: 'Group C', value: 300 }, { name: 'Group D', value: 200 }];
+
+const data2 = [{ name: 'Group A', value: 400 }, { name: 'Group B', value: 300 },
+{ name: 'Group C', value: 300 }];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const RADIAN = Math.PI / 180;
@@ -113,6 +117,8 @@ class DashboaradContainer extends Component {
         negativeCount: 0,
       },
       words: [],
+      value: 'عاشر',
+      values: ['عاشر', 'من عاشر القوم اربعين يوما، إما صار منهم أو رحل عنهم', 'من عاشر القوم اربعين يوما، إما صار منهم م', 'مرحباً ، هذا أنا ، أعمل على مشروع جديد لإكمال هذا المجال المعين في الفضاء وتدفق الهواء ثم استمر حتى ينتهي العمل'],
       calcImpact: {},
     };
     this.filtered = [];
@@ -128,11 +134,14 @@ class DashboaradContainer extends Component {
 
   componentDidMount() {
     this.props.actions.getStatus();
+
   }
 
   componentWillReceiveProps(nextProps) {
     const filtered = [];
     const tweets = nextProps.status;
+    let value = '';
+    let values = [];
     console.log('nextProps', nextProps);
     if (nextProps) {
       const usedWords = nextProps.status.mostUseKeywords;
@@ -161,7 +170,11 @@ class DashboaradContainer extends Component {
         neutralCount: Math.round((tweets.neutralCount / (tweets.postiveCount + tweets.negativeCount + tweets.neutralCount)) * 100),
 
       };
-      this.setState({ tweets: nextProps.status, calcImpact });
+      if (nextProps && nextProps.status && nextProps.status.lastFiveTweets && nextProps.status.lastFiveTweets[0]) {
+        values = nextProps.status.lastFiveTweets;
+        value = nextProps.status.lastFiveTweets[0]
+      }
+      this.setState({ tweets: nextProps.status, calcImpact, values, value });
     }
   }
 
@@ -179,8 +192,14 @@ class DashboaradContainer extends Component {
     }
   }
 
+  onChange = (object, index, value) => {
+    this.setState({
+      value,
+    });
+  };
+
   render() {
-    const { tweets, calcImpact } = this.state;
+    const { tweets, calcImpact, values, value } = this.state;
 
     return (
       <div className="dashboardContainer">
@@ -191,10 +210,10 @@ class DashboaradContainer extends Component {
           zDepth={0}
         >
           <div style={{
-            padding: '15px 0px 0px 20px', fontSize: '25px', fontWeight: '25px', color: 'gray',
+            padding: '15px 0px 0px 10px', fontSize: '25px', fontWeight: '25px', color: 'gray',
           }}
           >
-            <span>Sentimental Analysis - Tweet Id {tweets.tweetId}</span>
+            <span>Sentimental Analysis</span>
             <div />
           </div>
 
@@ -215,6 +234,16 @@ class DashboaradContainer extends Component {
                 <Col md={10}>
                   <img src={DubaiTweetName} />
                   <span > {this.getTweetText(tweets.tweetText)} </span>
+                  <SelectField
+                    className="SelectField"
+                    floatingLabelText="Last Five Tweets"
+                    style={{ width: '90%' }}
+                    value={value}
+                    onChange={this.onChange}
+                    underlineDisabledStyle={{ cursor: 'pointer', color: 'red', borderBottom: '1px solid #D3D3D3' }}                  >
+                    {values.map(v => <MenuItem value={v} primaryText={v} key={v} />)}
+                  </SelectField>
+                  
                 </Col>
               </Row>
             </Grid>
@@ -223,13 +252,13 @@ class DashboaradContainer extends Component {
               <text x={400} y={200} textAnchor="middle" dominantBaseline="middle" />
               <Pie
                 className="half-chart"
-                data={data}
-                cx={100}
-                cy={100}
+                data={data2}
+                cx={90}
+                cy={70}
                 startAngle={180}
                 endAngle={0}
-                innerRadius={60}
-                outerRadius={80}
+                innerRadius={30}
+                outerRadius={40}
                 fill="#8884d8"
                 paddingAngle={5}
                 label

@@ -12,14 +12,21 @@ const DashboardSource = {
         .accept(APIURL.APPLICATION_TYPE)
         .timeout(30000)
         .end((err, response) => {
-          if (response && response.text) {
-            const responseData = JSON.parse(response.text);
-            console.log('response', responseData.response);
-            resolve(responseData.response);
-          } else {
-            console.log('err', err);
+          console.log('response', response);
+          if (response.status === 200) {
+            if (response && response.text) {
+              const responseData = JSON.parse(response.text);
+              console.log('response', responseData.response);
+              resolve(responseData.response);
+            } else {
+              console.log('err', err);
+              reject();
+            }
+          }
+          else {
             reject();
           }
+
         });
     });
   },
