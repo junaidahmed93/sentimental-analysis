@@ -9,6 +9,9 @@ body {
   overflow: hidden;
   /* overflow-x: auto !important; */
 }
+.SelectField label{
+  left: 0px !important;
+}
 .recharts-text {
   /* font-size: 9px !important; */
 }

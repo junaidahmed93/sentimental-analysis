@@ -75,7 +75,7 @@ class HeaderMenu extends Component {
           style={{ alignSelf: 'center', marginRight: '65px' }}
         >
           <img src={DubaiPoliceLogo} height="62px" width="72px" />
-          <span style={{ paddingLeft: '10px' }}>Dubai Police</span>
+          <span style={{ paddingLeft: '10px', color:'white', fontWeight:'Bold' }}>Dubai Police</span>
         </Menu.Item>
 
         <Menu.Item

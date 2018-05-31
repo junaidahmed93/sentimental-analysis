@@ -234,6 +234,14 @@ class DashboaradContainer extends Component {
                 <Col md={10}>
                   <img src={DubaiTweetName} />
                   <span > {this.getTweetText(tweets.tweetText)} </span>
+
+
+                </Col>
+              </Row>
+            </Grid>
+            <Grid class="multiple-tweet">
+              <Row>
+                <Col md={12}>
                   <SelectField
                     className="SelectField"
                     floatingLabelText="Last Five Tweets"
@@ -243,7 +251,6 @@ class DashboaradContainer extends Component {
                     underlineDisabledStyle={{ cursor: 'pointer', color: 'red', borderBottom: '1px solid #D3D3D3' }}                  >
                     {values.map(v => <MenuItem value={v} primaryText={v} key={v} />)}
                   </SelectField>
-                  
                 </Col>
               </Row>
             </Grid>
@@ -439,11 +446,11 @@ class DashboaradContainer extends Component {
                   {/* <div style={{display:'inline-block', height: '50px', width:'2px',border: '2px solid gray'}}></div> */}
                   <h5> Most Used words </h5>
                   <ul>
-                    <li style={{ color: '#2BCEAF' }}>{this.words[0].word}</li>
-                    <li style={{ color: '#FFCC5F' }}>{this.words[2].word}</li>
-                    <li style={{ color: '#FF8042' }}>{this.words[3].word}</li>
-                    <li style={{ color: '#FF8042' }}>{this.words[1].word}</li>
-                    <li style={{ color: '#FF8042' }}>{this.words[4].word}</li>
+                    <li style={{ color: '#2BCEAF', padding: '8px' }}>{this.words[0].word}</li>
+                    <li style={{ color: '#FFCC5F', padding: '8px' }}>{this.words[2].word}</li>
+                    <li style={{ color: '#FF8042', padding: '8px' }}>{this.words[3].word}</li>
+                    <li style={{ color: '#FF8042', padding: '8px' }}>{this.words[1].word}</li>
+                    <li style={{ color: '#FF8042', padding: '8px' }}>{this.words[4].word}</li>
                   </ul>
                   {/* <ReactWordCloud
 	words={this.words}
@@ -474,4 +481,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboaradContainer);
-// export default DashboaradContainer;
+      // export default DashboaradContainer;
